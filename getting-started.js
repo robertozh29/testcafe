@@ -4,5 +4,6 @@ fixture('Getting Started')
 test('My first test', async t => {
     await t
         .typeText('#developer-name', 'John Smith')
+        .wait(5000)
         .click('#submit-button');
 });

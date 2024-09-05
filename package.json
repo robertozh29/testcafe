@@ -1,0 +1,22 @@
+{
+  "name": "testcafe",
+  "version": "1.0.0",
+  "description": "Automated testing with testcafe",
+  "main": "index.js",
+  "scripts": {
+    "test": "testcafe chrome index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robertozh29/testcafe.git"
+  },
+  "author": "Roberto Zepeda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robertozh29/testcafe/issues"
+  },
+  "homepage": "https://github.com/robertozh29/testcafe#readme",
+  "dependencies": {
+    "testcafe": "^3.6.2"
+  }
+}

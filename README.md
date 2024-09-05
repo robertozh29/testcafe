@@ -18,7 +18,15 @@ cd testcafe
 npm install
 ```
 
-### usage
+### Usage
+In order to execute the test, run the following comand:
+```
+testcafe chrome index.js
+```
+Or you can try as well:
+```
+npm run test
 ```
 
-```
+
+

@@ -1,26 +1,33 @@
 import { Selector } from 'testcafe';
 
-/*
-LOGIN CREDENTIALS
-    User: robertozh
-    Password: 12345
-*/
+const user = {
+    user: "robertozh",
+    password: "12345",
+    name: "Roberto",
+    country: "Mexico",
+    city:   "Guadalajara",
+    creditCard: "1111111111111111",
+    month: "11",
+    year: "11"
+}
 
 fixture('Demoblaze')
     .page('https://www.demoblaze.com/index.html');
 
 test('Login', async t => {
+    var textValidation = `Welcome ${user.user}`
     const submintBtn = Selector('button').withText('Log in').withAttribute('class', 'btn btn-primary');
+    const loginStatus = Selector('#nameofuser');
     await t
         .click('#login2')
         .typeText('#loginusername', 'robertozh')
         .typeText('#loginpassword', '12345')
         .click(submintBtn)
-        .wait(1000);   
+        .expect(loginStatus.innerText).eql(textValidation, 'The element does not contain the expected text')
+        .wait(1000);  
 });
 
 test('Add Product', async t => {
-    const homeBtn = Selector('a').withText('Home').withAttribute('class', 'nav-link');
     const cartBtn = Selector('a').withText('Cart').withAttribute('class', 'nav-link');
     const prod1Link = Selector('a').withAttribute('href', 'prod.html?idp_=1');
     const addToCart = Selector('a').withText('Add to cart');
@@ -32,23 +39,21 @@ test('Add Product', async t => {
         .wait(1000)
 });
 
-const user = {
-    name: "Roberto",
-    country: "Mexico",
-    city:   "Guadalajara",
-    creditCard: "1111222233334444",
-    month: "01",
-    year: "01"
-}
-
 
 test('Purchase', async t => {
+    const homeBtn = Selector('a').withText('Home').withAttribute('class', 'nav-link');
     const cartBtn = Selector('a').withText('Cart').withAttribute('class', 'nav-link');
+    const prod1Link = Selector('a').withAttribute('href', 'prod.html?idp_=2');
+    const addToCart = Selector('a').withText('Add to cart');
     const placeOrderBtn = Selector('button').withText('Place Order').withAttribute('class', 'btn btn-success');
     const purchaseBtn = Selector('button').withText('Purchase').withAttribute('class', 'btn btn-primary');
     const alertBtn = Selector('button').withText('OK').withAttribute('class', 'confirm btn btn-lg btn-primary');
     
     await t
+        .click(homeBtn)
+        .click(prod1Link)
+        .setNativeDialogHandler(() => true)
+        .click(addToCart)
         .click(cartBtn)
         .click(placeOrderBtn)
         .typeText('#name', user.name)
